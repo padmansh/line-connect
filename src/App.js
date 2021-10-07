@@ -1,7 +1,13 @@
 import "./assets/main.css";
+import Container from "./Components/Container";
+import Tile from "./Components/Tile";
 
 function App() {
-  return <div className="text-red-800">kya yeh laal hua ?</div>;
+  return (
+    <Container>
+      <Tile />
+    </Container>
+  );
 }
 
 export default App;
