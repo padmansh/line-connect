@@ -5,7 +5,7 @@ import Tile from "./Components/Tile";
 function App() {
   return (
     <Container>
-      <Tile />
+      <Tile r={10} c={4} />
     </Container>
   );
 }
