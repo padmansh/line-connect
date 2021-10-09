@@ -55,6 +55,22 @@ const Tile = ({ r, c }) => {
     setBoard(tiles);
   }, [tiles]);
 
+  const isp0 = (start, end) => {
+    if (p0Moves.hasOwnProperty(start)) {
+      if (p0Moves[start].includes(end)) {
+        return true;
+      } else return false;
+    } else return false;
+  };
+
+  const isp1 = (start, end) => {
+    if (p1Moves.hasOwnProperty(start)) {
+      if (p1Moves[start].includes(end)) {
+        return true;
+      } else return false;
+    } else return false;
+  };
+
   return (
     <div className="flex-flex-col">
       {board?.map((row, i) => (
@@ -71,7 +87,11 @@ const Tile = ({ r, c }) => {
                       />
                       <div
                         className={`cursor-pointer h-1 w-16 rounded-full ${
-                          player === 0
+                          isp0(`${i}${j}`, `${i}${j + 1}`)
+                            ? "bg-red-500"
+                            : isp1(`${i}${j}`, `${i}${j + 1}`)
+                            ? "bg-blue-500"
+                            : player === 0
                             ? " hover:bg-red-500"
                             : " hover:bg-blue-500"
                         }`}
@@ -83,7 +103,11 @@ const Tile = ({ r, c }) => {
                     <div className="flex">
                       <div
                         className={`cursor-pointer h-16 w-1 rounded-full ${
-                          player === 0
+                          isp0(`${i}${j}`, `${i + 1}${j}`)
+                            ? "bg-red-500"
+                            : isp1(`${i}${j}`, `${i + 1}${j}`)
+                            ? "bg-blue-500"
+                            : player === 0
                             ? " hover:bg-red-500"
                             : " hover:bg-blue-500"
                         }`}
@@ -91,7 +115,7 @@ const Tile = ({ r, c }) => {
                           handleLineClick(`${i}${j}`, `${i + 1}${j}`)
                         }
                       />
-                      <div className="h-16 w-16 rounded-full" />
+                      <div className="h-16 w-16 rounded-sm bg-gray-50" />
                     </div>
                   </div>
                 );
@@ -105,7 +129,11 @@ const Tile = ({ r, c }) => {
                       />
                       <div
                         className={`cursor-pointer h-1 w-16 rounded-full ${
-                          player === 0
+                          isp0(`${i}${j}`, `${i}${j + 1}`)
+                            ? "bg-red-500"
+                            : isp1(`${i}${j}`, `${i}${j + 1}`)
+                            ? "bg-blue-500"
+                            : player === 0
                             ? " hover:bg-red-500"
                             : " hover:bg-blue-500"
                         }`}
@@ -121,7 +149,11 @@ const Tile = ({ r, c }) => {
                     <div className="flex">
                       <div
                         className={`cursor-pointer h-16 w-1 rounded-full ${
-                          player === 0
+                          isp0(`${i}${j}`, `${i + 1}${j}`)
+                            ? "bg-red-500"
+                            : isp1(`${i}${j}`, `${i + 1}${j}`)
+                            ? "bg-blue-500"
+                            : player === 0
                             ? " hover:bg-red-500"
                             : " hover:bg-blue-500"
                         }`}
@@ -129,10 +161,14 @@ const Tile = ({ r, c }) => {
                           handleLineClick(`${i}${j}`, `${i + 1}${j}`)
                         }
                       />
-                      <div className="h-16 w-16 rounded-full" />
+                      <div className="h-16 w-16 rounded-sm bg-gray-50" />
                       <div
                         className={`cursor-pointer h-16 w-1 rounded-full ${
-                          player === 0
+                          isp0(`${i}${j + 1}`, `${i + 1}${j + 1}`)
+                            ? "bg-red-500"
+                            : isp1(`${i}${j + 1}`, `${i + 1}${j + 1}`)
+                            ? "bg-blue-500"
+                            : player === 0
                             ? " hover:bg-red-500"
                             : " hover:bg-blue-500"
                         }`}
@@ -155,7 +191,11 @@ const Tile = ({ r, c }) => {
                       />
                       <div
                         className={`cursor-pointer h-1 w-16 rounded-full ${
-                          player === 0
+                          isp0(`${i}${j}`, `${i}${j + 1}`)
+                            ? "bg-red-500"
+                            : isp1(`${i}${j}`, `${i}${j + 1}`)
+                            ? "bg-blue-500"
+                            : player === 0
                             ? " hover:bg-red-500"
                             : " hover:bg-blue-500"
                         }`}
@@ -167,7 +207,11 @@ const Tile = ({ r, c }) => {
                     <div className="flex">
                       <div
                         className={`cursor-pointer h-16 w-1 rounded-full ${
-                          player === 0
+                          isp0(`${i}${j}`, `${i + 1}${j}`)
+                            ? "bg-red-500"
+                            : isp1(`${i}${j}`, `${i + 1}${j}`)
+                            ? "bg-blue-500"
+                            : player === 0
                             ? " hover:bg-red-500"
                             : " hover:bg-blue-500"
                         }`}
@@ -175,7 +219,7 @@ const Tile = ({ r, c }) => {
                           handleLineClick(`${i}${j}`, `${i + 1}${j}`)
                         }
                       />
-                      <div className="h-16 w-16 rounded-full" />
+                      <div className="h-16 w-16 rounded-sm bg-gray-50" />
                     </div>
                     <div className="flex">
                       <div
@@ -184,7 +228,11 @@ const Tile = ({ r, c }) => {
                       />
                       <div
                         className={`cursor-pointer h-1 w-16 rounded-full ${
-                          player === 0
+                          isp0(`${i + 1}${j}`, `${i + 1}${j + 1}`)
+                            ? "bg-red-500"
+                            : isp1(`${i + 1}${j}`, `${i + 1}${j + 1}`)
+                            ? "bg-blue-500"
+                            : player === 0
                             ? " hover:bg-red-500"
                             : " hover:bg-blue-500"
                         }`}
@@ -205,7 +253,11 @@ const Tile = ({ r, c }) => {
                       />
                       <div
                         className={`cursor-pointer h-1 w-16 rounded-full ${
-                          player === 0
+                          isp0(`${i}${j}`, `${i}${j + 1}`)
+                            ? "bg-red-500"
+                            : isp1(`${i}${j}`, `${i}${j + 1}`)
+                            ? "bg-blue-500"
+                            : player === 0
                             ? " hover:bg-red-500"
                             : " hover:bg-blue-500"
                         }`}
@@ -221,7 +273,11 @@ const Tile = ({ r, c }) => {
                     <div className="flex">
                       <div
                         className={`cursor-pointer h-16 w-1 rounded-full ${
-                          player === 0
+                          isp0(`${i}${j}`, `${i + 1}${j}`)
+                            ? "bg-red-500"
+                            : isp1(`${i}${j}`, `${i + 1}${j}`)
+                            ? "bg-blue-500"
+                            : player === 0
                             ? " hover:bg-red-500"
                             : " hover:bg-blue-500"
                         }`}
@@ -229,10 +285,14 @@ const Tile = ({ r, c }) => {
                           handleLineClick(`${i}${j}`, `${i + 1}${j}`)
                         }
                       />
-                      <div className="h-16 w-16 rounded-full" />
+                      <div className="h-16 w-16 rounded-sm bg-gray-50" />
                       <div
                         className={`cursor-pointer h-16 w-1 rounded-full ${
-                          player === 0
+                          isp0(`${i}${j + 1}`, `${i + 1}${j + 1}`)
+                            ? "bg-red-500"
+                            : isp1(`${i}${j + 1}`, `${i + 1}${j + 1}`)
+                            ? "bg-blue-500"
+                            : player === 0
                             ? " hover:bg-red-500"
                             : " hover:bg-blue-500"
                         }`}
@@ -248,7 +308,11 @@ const Tile = ({ r, c }) => {
                       />
                       <div
                         className={`cursor-pointer h-1 w-16 rounded-full ${
-                          player === 0
+                          isp0(`${i + 1}${j}`, `${i + 1}${j + 1}`)
+                            ? "bg-red-500"
+                            : isp1(`${i + 1}${j}`, `${i + 1}${j + 1}`)
+                            ? "bg-blue-500"
+                            : player === 0
                             ? " hover:bg-red-500"
                             : " hover:bg-blue-500"
                         }`}
