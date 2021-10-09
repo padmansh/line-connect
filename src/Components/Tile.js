@@ -77,6 +77,7 @@ const Tile = ({ r, c }) => {
 
   useEffect(() => {
     setBoard(tiles);
+    //eslint-disable-next-line
   }, []);
 
   const isp0 = (start, end) => {
