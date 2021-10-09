@@ -20,6 +20,7 @@ const Tile = ({ r, c }) => {
   }
 
   const resetBoard = (selected) => {
+    let flip = false;
     for (let i = 0; i < r; i++) {
       for (let j = 0; j < c; j++) {
         if (board[i][j] === -1) {
@@ -36,10 +37,12 @@ const Tile = ({ r, c }) => {
             const temp = [...board];
             temp[i].splice(j, 1, player);
             setBoard(temp);
+            flip = true;
           }
         }
       }
     }
+    return flip;
   };
 
   const handleLineClick = (start, end) => {
@@ -67,11 +70,13 @@ const Tile = ({ r, c }) => {
       setP1Moves(temp);
     }
     setSelected(temp);
-    resetBoard(temp);
-    if (player === 0) {
-      setPlayer(1);
-    } else {
-      setPlayer(0);
+    let flip = resetBoard(temp);
+    if (!flip) {
+      if (player === 0) {
+        setPlayer(1);
+      } else {
+        setPlayer(0);
+      }
     }
   };
 
@@ -105,13 +110,13 @@ const Tile = ({ r, c }) => {
               if (j < c - 1) {
                 tile = (
                   <div className="flex flex-col" key={j}>
-                    <div className="flex">
+                    <div className="flex items-center">
                       <div
-                        className="h-1 w-1 bg-black rounded-full"
+                        className="h-2 w-2 bg-black rounded-full"
                         id={`${i}${j}`}
                       />
                       <div
-                        className={`cursor-pointer h-1 w-16 rounded-full ${
+                        className={`cursor-pointer h-1.5 w-16 rounded-full relative flex items-center ${
                           isp0(`${i}${j}`, `${i}${j + 1}`)
                             ? "bg-red-500"
                             : isp1(`${i}${j}`, `${i}${j + 1}`)
@@ -123,11 +128,13 @@ const Tile = ({ r, c }) => {
                         onClick={() =>
                           handleLineClick(`${i}${j}`, `${i}${j + 1}`)
                         }
-                      />
+                      >
+                        <div className=" absolute h-6 w-16 rounded-full" />
+                      </div>
                     </div>
-                    <div className="flex">
+                    <div className="flex justify-center">
                       <div
-                        className={`cursor-pointer h-16 w-1 rounded-full ${
+                        className={`cursor-pointer h-16 w-1.5 rounded-full flex justify-center relative ${
                           isp0(`${i}${j}`, `${i + 1}${j}`)
                             ? "bg-red-500"
                             : isp1(`${i}${j}`, `${i + 1}${j}`)
@@ -139,12 +146,14 @@ const Tile = ({ r, c }) => {
                         onClick={() =>
                           handleLineClick(`${i}${j}`, `${i + 1}${j}`)
                         }
-                      />
+                      >
+                        <div className="absolute h-16 w-6 rounded-full" />
+                      </div>
                       <div
-                        className={`h-16 w-16 rounded-sm flex items-center justify-center`}
+                        className={`h-16 w-16 p-1.5 rounded-sm flex items-center justify-center`}
                       >
                         <div
-                          className={`h-12 w-12 rounded-full  ${
+                          className={`-mr-0.5 h-full w-full rounded-sm  ${
                             block === 0
                               ? "bg-red-500"
                               : block === 1
@@ -159,13 +168,13 @@ const Tile = ({ r, c }) => {
               } else {
                 tile = (
                   <div className="flex flex-col" key={j}>
-                    <div className="flex">
+                    <div className="flex items-center">
                       <div
-                        className="h-1 w-1 bg-black rounded-full"
+                        className="h-2 w-2 bg-black rounded-full"
                         id={`${i}${j}`}
                       />
                       <div
-                        className={`cursor-pointer h-1 w-16 rounded-full ${
+                        className={`cursor-pointer h-1.5 w-16 rounded-full relative flex items-center ${
                           isp0(`${i}${j}`, `${i}${j + 1}`)
                             ? "bg-red-500"
                             : isp1(`${i}${j}`, `${i}${j + 1}`)
@@ -177,15 +186,17 @@ const Tile = ({ r, c }) => {
                         onClick={() =>
                           handleLineClick(`${i}${j}`, `${i}${j + 1}`)
                         }
-                      />
+                      >
+                        <div className=" absolute h-6 w-16 rounded-full" />
+                      </div>
                       <div
-                        className="h-1 w-1 bg-black rounded-full"
+                        className="h-2 w-2 bg-black rounded-full"
                         id={`${i}${j + 1}`}
                       />
                     </div>
-                    <div className="flex">
+                    <div className="flex justify-center">
                       <div
-                        className={`cursor-pointer h-16 w-1 rounded-full ${
+                        className={`cursor-pointer h-16 w-1.5 rounded-full relative flex justify-center mr-0.5 ${
                           isp0(`${i}${j}`, `${i + 1}${j}`)
                             ? "bg-red-500"
                             : isp1(`${i}${j}`, `${i + 1}${j}`)
@@ -197,12 +208,14 @@ const Tile = ({ r, c }) => {
                         onClick={() =>
                           handleLineClick(`${i}${j}`, `${i + 1}${j}`)
                         }
-                      />
+                      >
+                        <div className=" absolute h-16 w-6 rounded-full" />
+                      </div>
                       <div
-                        className={`h-16 w-16 rounded-sm flex justify-center items-center `}
+                        className={`h-16 w-16 p-1.5 rounded-sm flex justify-center items-center `}
                       >
                         <div
-                          className={`h-12 w-12 rounded-full ${
+                          className={`-ml-0.5 h-full w-full rounded-sm ${
                             block === 0
                               ? "bg-red-500"
                               : block === 1
@@ -212,7 +225,7 @@ const Tile = ({ r, c }) => {
                         />{" "}
                       </div>
                       <div
-                        className={`cursor-pointer h-16 w-1 rounded-full ${
+                        className={`cursor-pointer h-16 w-1.5 rounded-full relative flex justify-center ${
                           isp0(`${i}${j + 1}`, `${i + 1}${j + 1}`)
                             ? "bg-red-500"
                             : isp1(`${i}${j + 1}`, `${i + 1}${j + 1}`)
@@ -224,7 +237,9 @@ const Tile = ({ r, c }) => {
                         onClick={() =>
                           handleLineClick(`${i}${j + 1}`, `${i + 1}${j + 1}`)
                         }
-                      />
+                      >
+                        <div className=" absolute h-16 w-6 rounded-full" />
+                      </div>
                     </div>
                   </div>
                 );
@@ -233,13 +248,13 @@ const Tile = ({ r, c }) => {
               if (j < c - 1) {
                 tile = (
                   <div className="flex flex-col" key={j}>
-                    <div className="flex">
+                    <div className="flex items-center">
                       <div
-                        className="h-1 w-1 bg-black rounded-full"
+                        className="h-2 w-2 bg-black rounded-full"
                         id={`${i}${j}`}
                       />
                       <div
-                        className={`cursor-pointer h-1 w-16 rounded-full ${
+                        className={`cursor-pointer h-1.5 w-16 rounded-full relative flex items-center ${
                           isp0(`${i}${j}`, `${i}${j + 1}`)
                             ? "bg-red-500"
                             : isp1(`${i}${j}`, `${i}${j + 1}`)
@@ -251,11 +266,13 @@ const Tile = ({ r, c }) => {
                         onClick={() =>
                           handleLineClick(`${i}${j}`, `${i}${j + 1}`)
                         }
-                      />
+                      >
+                        <div className=" absolute h-6 w-16 rounded-full" />
+                      </div>
                     </div>
-                    <div className="flex">
+                    <div className="flex justify-center">
                       <div
-                        className={`cursor-pointer h-16 w-1 rounded-full ${
+                        className={`cursor-pointer h-16 w-1.5 rounded-full relative flex justify-center ${
                           isp0(`${i}${j}`, `${i + 1}${j}`)
                             ? "bg-red-500"
                             : isp1(`${i}${j}`, `${i + 1}${j}`)
@@ -267,28 +284,30 @@ const Tile = ({ r, c }) => {
                         onClick={() =>
                           handleLineClick(`${i}${j}`, `${i + 1}${j}`)
                         }
-                      />
+                      >
+                        <div className=" absolute h-16 w-6 rounded-full" />
+                      </div>
                       <div
-                        className={`h-16 w-16 rounded-sm flex justify-center items-center `}
+                        className={`h-16 w-16 p-1.5 rounded-sm flex justify-center items-center `}
                       >
                         <div
-                          className={`h-12 w-12 rounded-full ${
+                          className={`-mr-0.5 h-full w-full rounded-sm ${
                             block === 0
                               ? "bg-red-500"
                               : block === 1
                               ? "bg-blue-500"
                               : ""
                           }`}
-                        />{" "}
+                        />
                       </div>
                     </div>
-                    <div className="flex">
+                    <div className="flex items-center">
                       <div
-                        className="h-1 w-1 bg-black rounded-full"
+                        className="h-2 w-2 bg-black rounded-full"
                         id={`${i + 1}${j}`}
                       />
                       <div
-                        className={`cursor-pointer h-1 w-16 rounded-full ${
+                        className={`cursor-pointer h-1.5 w-16 rounded-full relative flex items-center ${
                           isp0(`${i + 1}${j}`, `${i + 1}${j + 1}`)
                             ? "bg-red-500"
                             : isp1(`${i + 1}${j}`, `${i + 1}${j + 1}`)
@@ -300,20 +319,22 @@ const Tile = ({ r, c }) => {
                         onClick={() =>
                           handleLineClick(`${i + 1}${j}`, `${i + 1}${j + 1}`)
                         }
-                      />
+                      >
+                        <div className=" absolute h-6 w-16 rounded-full" />
+                      </div>
                     </div>
                   </div>
                 );
               } else {
                 tile = (
                   <div className="flex flex-col" key={j}>
-                    <div className="flex">
+                    <div className="flex items-center">
                       <div
-                        className="h-1 w-1 bg-black rounded-full"
+                        className="h-2 w-2 bg-black rounded-full"
                         id={`${i}${j}`}
                       />
                       <div
-                        className={`cursor-pointer h-1 w-16 rounded-full ${
+                        className={`cursor-pointer h-1.5 w-16 rounded-full relative flex items-center ${
                           isp0(`${i}${j}`, `${i}${j + 1}`)
                             ? "bg-red-500"
                             : isp1(`${i}${j}`, `${i}${j + 1}`)
@@ -325,15 +346,17 @@ const Tile = ({ r, c }) => {
                         onClick={() =>
                           handleLineClick(`${i}${j}`, `${i}${j + 1}`)
                         }
-                      />
+                      >
+                        <div className=" absolute h-6 w-16 rounded-full" />
+                      </div>
                       <div
-                        className="h-1 w-1 bg-black rounded-full"
+                        className="h-2 w-2 bg-black rounded-full"
                         id={`${i}${j + 1}`}
                       />
                     </div>
-                    <div className="flex">
+                    <div className="flex justify-center">
                       <div
-                        className={`cursor-pointer h-16 w-1 rounded-full ${
+                        className={`cursor-pointer h-16 w-1.5 rounded-full relative flex justify-center mr-0.5 ${
                           isp0(`${i}${j}`, `${i + 1}${j}`)
                             ? "bg-red-500"
                             : isp1(`${i}${j}`, `${i + 1}${j}`)
@@ -345,12 +368,14 @@ const Tile = ({ r, c }) => {
                         onClick={() =>
                           handleLineClick(`${i}${j}`, `${i + 1}${j}`)
                         }
-                      />
+                      >
+                        <div className=" absolute h-16 w-6 rounded-full" />
+                      </div>
                       <div
-                        className={`h-16 w-16 rounded-sm flex justify-center items-center `}
+                        className={`h-16 w-16 p-1.5 rounded-sm flex justify-center items-center `}
                       >
                         <div
-                          className={`h-12 w-12 rounded-full ${
+                          className={`-ml-0.5 h-full w-full rounded-sm ${
                             block === 0
                               ? "bg-red-500"
                               : block === 1
@@ -360,7 +385,7 @@ const Tile = ({ r, c }) => {
                         />
                       </div>
                       <div
-                        className={`cursor-pointer h-16 w-1 rounded-full ${
+                        className={`cursor-pointer h-16 w-1.5 relative flex justify-center rounded-full ${
                           isp0(`${i}${j + 1}`, `${i + 1}${j + 1}`)
                             ? "bg-red-500"
                             : isp1(`${i}${j + 1}`, `${i + 1}${j + 1}`)
@@ -372,15 +397,17 @@ const Tile = ({ r, c }) => {
                         onClick={() =>
                           handleLineClick(`${i}${j + 1}`, `${i + 1}${j + 1}`)
                         }
-                      />
+                      >
+                        <div className=" absolute h-16 w-6 rounded-full" />
+                      </div>
                     </div>
                     <div className="flex">
                       <div
-                        className="h-1 w-1 bg-black rounded-full"
+                        className="h-2 w-2 bg-black rounded-full"
                         id={`${i + 1}${j}`}
                       />
                       <div
-                        className={`cursor-pointer h-1 w-16 rounded-full ${
+                        className={`cursor-pointer h-1.5 w-16 rounded-full relative flex items-center ${
                           isp0(`${i + 1}${j}`, `${i + 1}${j + 1}`)
                             ? "bg-red-500"
                             : isp1(`${i + 1}${j}`, `${i + 1}${j + 1}`)
@@ -392,9 +419,11 @@ const Tile = ({ r, c }) => {
                         onClick={() =>
                           handleLineClick(`${i + 1}${j}`, `${i + 1}${j + 1}`)
                         }
-                      />
+                      >
+                        <div className=" absolute h-6 w-16 rounded-full" />
+                      </div>
                       <div
-                        className="h-1 w-1 bg-black rounded-full"
+                        className="h-2 w-2 bg-black rounded-full"
                         id={`${i + 1}${j + 1}`}
                       />
                     </div>
